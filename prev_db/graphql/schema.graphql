@@ -1,0 +1,16 @@
+type Player {
+  id: Int!
+  name: String!
+  age: Int!
+  position: String!
+}
+
+type Query {
+  players: [Player]!
+  player(id: Int!): Player
+}
+
+type Mutation {
+  addPlayer(name: String!, age: Int!, position: String!): Player!
+  deletePlayer(id: Int!): Boolean!
+}

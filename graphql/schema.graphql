@@ -1,16 +1,12 @@
-type Player {
+type Movie {
   id: Int!
-  name: String!
-  age: Int!
-  position: String!
+  title: String!
+  rating: Float!
+  summary: String!
+  language: String!
+  medium_cover_image: String!
 }
 
 type Query {
-  players: [Player]!
-  player(id: Int!): Player
-}
-
-type Mutation {
-  addPlayer(name: String!, age: Int!, position: String!): Player!
-  deletePlayer(id: Int!): Boolean!
+  movies: [Movie]!
 }
