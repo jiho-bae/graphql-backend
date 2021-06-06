@@ -1,4 +1,4 @@
-type Person {
+type Player {
   id: Int!
   name: String!
   age: Int!
@@ -6,6 +6,11 @@ type Person {
 }
 
 type Query {
-  people: [Person]!
-  person(id: Int!): Person
+  players: [Player]!
+  player(id: Int!): Player
+}
+
+type Mutation {
+  addPlayer(name: String!, age: Int!, position: String!): Player!
+  deletePlayer(id: Int!): Boolean!
 }
