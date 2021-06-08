@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components";
+import Movie from "../components/Movie";
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
@@ -24,14 +25,23 @@ const Container = styled.div`
   background-image: linear-gradient(-45deg, #d754ab, #fd723a);
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   color: white;
 `;
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const Column = styled.div`
-  margin-left: 10px;
-  width: 50%;
+  width: 60%;
+  height: 60%;
 `;
 
 const Title = styled.h1`
@@ -49,12 +59,21 @@ const Description = styled.p`
 `;
 
 const Poster = styled.div`
+  margin-top: 15px;
   width: 25%;
-  height: 60%;
+  height: 100%;
   background-color: transparent;
   background-image: url(${(props) => props.bg});
   background-size: cover;
   background-position: center center;
+`;
+
+const Movies = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  width: 30%;
+  margin-bottom: 30px;
 `;
 
 export default () => {
@@ -64,17 +83,26 @@ export default () => {
   });
   return (
     <Container>
-      <Column>
-        <Title>{loading ? "Loading...." : data?.movie?.title}</Title>
-        <Subtitle>
-          {data?.movie?.language} · {data?.movie?.rating}
-        </Subtitle>
-        <Description>{data?.movie?.description_intro}</Description>
-      </Column>
-      <Poster bg={data?.movie?.medium_cover_image}></Poster>
-      {data?.suggestions?.map((suggestion) => (
-        <div>{suggestion.id} 124</div>
-      ))}
+      <Wrapper>
+        <Column>
+          <Title>{loading ? "Loading...." : data?.movie?.title}</Title>
+          <Subtitle>
+            {data?.movie?.language} · {data?.movie?.rating}
+          </Subtitle>
+          <Description>{data?.movie?.description_intro}</Description>
+        </Column>
+        <Poster bg={data?.movie?.medium_cover_image}></Poster>
+      </Wrapper>
+      <Movies>
+        {data?.suggestions?.map((suggestion) => (
+          <Movie
+            key={suggestion.id}
+            id={suggestion.id}
+            bg={suggestion.medium_cover_image}
+            size={0.5}
+          />
+        ))}
+      </Movies>
     </Container>
   );
 };

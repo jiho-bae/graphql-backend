@@ -64,9 +64,10 @@ export default () => {
       <Movies>
         {data?.movies?.map((movie) => (
           <Movie
-            key={movie?.id}
-            id={movie?.id}
-            bg={movie?.medium_cover_image}
+            key={movie.id}
+            id={movie.id}
+            bg={movie.medium_cover_image}
+            size={1}
           />
         ))}
       </Movies>
